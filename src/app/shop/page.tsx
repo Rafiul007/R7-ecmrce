@@ -1,9 +1,10 @@
+"use client"
 import React from 'react'
 
-function page() {
+export const Shop = () => {
   return (
-    <div>Shop</div>
+    <div className='bg-red-500 width-full'>Shop</div>
   )
 }
 
-export default page
+export default Shop

@@ -29,7 +29,7 @@ export default function RootLayout({
           <div className="sticky top-0 z-50">
           <Navbar />
           </div>
-          <div className="max-w-5xl mx-auto text-2xl pt-4 h-screen">
+          <div className="max-w-7xl mx-auto text-2xl pt-4 h-screen">
             {children}
           </div>
         </ThemeProvider>
