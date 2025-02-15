@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
-import daisyui from "daisyui"
+import daisyui from "daisyui";
+
 export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -14,12 +15,19 @@ export default {
       },
     },
   },
-  plugins: [
-    daisyui
-  ],
+  plugins: [daisyui],
   daisyui: {
     themes: [
-      'lofi', 'valentine', 'cupcake'
-    ]
-  }
+      "cupcake",
+      {
+        cupcakeDark: {
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
+          ...require("daisyui/src/theming/themes")["cupcake"], 
+          "neutral": "#282a36",
+          "base-100": "#1e1e2e", 
+          "base-content": "#ffffff", 
+        },
+      },
+    ],
+  },
 } satisfies Config;
