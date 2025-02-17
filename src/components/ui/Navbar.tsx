@@ -15,7 +15,7 @@ export const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="w-full border-b">
+    <div className="w-full border-b bg-base-100">
       <div className="navbar max-w-7xl mx-auto bg-base-100 px-4">
         {/* 🔹 Mobile Menu Button */}
         <div className="md:hidden">
