@@ -15,13 +15,13 @@ export const ProductCard: FC<ProductCardProps> = ({
   price,
 }) => {
   return (
-    <div className="card card-compact bg-base-200 w-full sm:w-96 shadow-sm hover:shadow-md transition-all">
+    <div className="card card-compact bg-base-200 w-full sm:w-96 shadow-sm hover:shadow-md transition-all cursor-pointer">
       <figure className="relative w-full h-64">
         <Image
           src={image}
           alt={title}
-          layout="fill" 
-          objectFit="contain" 
+          layout="fill"
+          objectFit="contain"
           className="w-full h-full object-contain"
         />
       </figure>
