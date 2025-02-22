@@ -24,18 +24,18 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className="min-h-screen">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+      >
         <ThemeProvider>
           <div className="sticky top-0 z-50">
-          <Navbar />
+            <Navbar />
           </div>
-          <div className="max-w-7xl mx-auto text-2xl pt-4 h-screen">
+          <main className="flex-grow w-full mx-auto text-2xl">
             {children}
-          </div>
-          <div>
+          </main>
           <Footer />
-          </div>
         </ThemeProvider>
       </body>
     </html>
