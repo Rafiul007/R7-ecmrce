@@ -1,7 +1,10 @@
 import Image, { StaticImageData } from "next/image";
 import { FC } from "react";
+import { useRouter } from "next/navigation";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 interface ProductCardProps {
+  id: number;
   title: string;
   image: string | StaticImageData;
   description: string;
@@ -9,13 +12,19 @@ interface ProductCardProps {
 }
 
 export const ProductCard: FC<ProductCardProps> = ({
+  id,
   title,
   image,
   description,
   price,
 }) => {
+  const router = useRouter();
+
   return (
-    <div className="card card-compact bg-base-200 w-full sm:w-96 shadow-sm hover:shadow-md transition-all cursor-pointer">
+    <div 
+      className="card card-compact bg-white-200 w-full sm:w-96 shadow-sm hover:shadow-md transition-all cursor-pointer"
+      onClick={() => router.push(`/products/${id}`)}
+    >
       <figure className="relative w-full h-64">
         <Image
           src={image}
@@ -35,7 +44,7 @@ export const ProductCard: FC<ProductCardProps> = ({
               Buy Now
             </button>
             <button className="btn btn-secondary btn-outline btn-sm hover:bg-secondary transition-all">
-              Add to Cart
+              <AddShoppingCartIcon fontSize="small"/>
             </button>
           </div>
         </div>
