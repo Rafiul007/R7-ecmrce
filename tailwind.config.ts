@@ -19,7 +19,7 @@ export default {
   plugins: [daisyui],
   daisyui: {
     themes: [
-      "pastel",
+      "corporate",
       {
         cupcakeDark: {
           // eslint-disable-next-line @typescript-eslint/no-require-imports
