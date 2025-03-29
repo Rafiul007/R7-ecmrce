@@ -20,7 +20,7 @@ const ProductDetails = () => {
       try {
         const response = await fetch(`/api/products/${id}`);
         const data: IProduct = await response.json();
-        console.log("Testing product with id data",data);
+        console.log("Testing product with id data", data);
         if (data) {
           setProduct(data);
           setSelectedColor(data.colors ? data.colors[0] : "Default");

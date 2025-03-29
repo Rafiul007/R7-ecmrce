@@ -17,7 +17,7 @@ export const ProductCard: FC<ProductCardProps> = ({ product }) => {
       className="card card-compact bg-white-200 w-full border shadow-sm hover:shadow-md transition-all cursor-pointer elevate"
       onClick={() => router.push(`/products/${id}`)}
     >
-      { images && (
+      {images && (
         <figure className="w-full h-48 flex items-center justify-center overflow-hidden bg-white">
           <Image
             src={images[0]}

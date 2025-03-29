@@ -20,7 +20,7 @@ export const products = [
     title: "Adidas Samba",
     images: [
       "https://res.cloudinary.com/dmzmohj4i/image/upload/v1724685307/pauyv0i7kculnrlmic4n.jpg",
-      "https://res.cloudinary.com/dmzmohj4i/image/upload/v1724829132/twdwhaq7z8gnzb7pqiiv.jpg"
+      "https://res.cloudinary.com/dmzmohj4i/image/upload/v1724829132/twdwhaq7z8gnzb7pqiiv.jpg",
     ],
     description:
       "Iconic Adidas Superstar sneakers with a classic shell toe and sleek leather design.",

@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { ThemeContext } from "@/context/ThemeContext";
 import { Hero } from "@/components/layout/Hero";
 import Marquee from "react-fast-marquee";
-import {CategorySection} from "@/components/layout/category-section";
+import { CategorySection } from "@/components/layout/category-section";
 import ProductSection from "@/components/layout/product-section";
 
 export default function Home() {
@@ -13,7 +13,6 @@ export default function Home() {
   if (!themeContext) {
     return <div>Loading...</div>;
   }
-
 
   return (
     <>
