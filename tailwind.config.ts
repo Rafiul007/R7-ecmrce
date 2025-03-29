@@ -13,22 +13,14 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+         brand: "#1c70f0"
       },
     },
   },
   plugins: [daisyui],
   daisyui: {
     themes: [
-      "corporate",
-      {
-        cupcakeDark: {
-          // eslint-disable-next-line @typescript-eslint/no-require-imports
-          ...require("daisyui/src/theming/themes")["cupcake"], 
-          "neutral": "#282a36",
-          "base-100": "#1e1e2e", 
-          "base-content": "#ffffff", 
-        },
-      },
+      "lofi"
     ],
   },
 } satisfies Config;
