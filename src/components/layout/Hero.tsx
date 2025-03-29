@@ -7,7 +7,7 @@ import Image from "next/image"; // Import Next.js Image component
 import e2 from "../../assets/e2.jpg";
 import e3 from "../../assets/e3.jpg";
 
-const carouselImages = [ e2, e3];
+const carouselImages = [e2, e3];
 
 export const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

@@ -9,7 +9,11 @@ interface MobileMenuProps {
   menuData: IMenu[];
 }
 
-export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, setIsOpen, menuData }) => {
+export const MobileMenu: FC<MobileMenuProps> = ({
+  isOpen,
+  setIsOpen,
+  menuData,
+}) => {
   return (
     <>
       {/* Overlay Background */}
@@ -28,7 +32,10 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, setIsOpen, menuData })
       >
         <div className="p-4 flex justify-between items-center">
           <h2 className="text-xl font-semibold">Menu</h2>
-          <button onClick={() => setIsOpen(false)} className="btn btn-ghost btn-circle">
+          <button
+            onClick={() => setIsOpen(false)}
+            className="btn btn-ghost btn-circle"
+          >
             ✕
           </button>
         </div>
@@ -36,7 +43,11 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, setIsOpen, menuData })
         {/* Menu Items */}
         <nav className="flex flex-col space-y-4 p-4">
           {menuData.map((menu) => (
-            <a key={menu.name} href={menu.link} className="btn btn-ghost btn-block text-left">
+            <a
+              key={menu.name}
+              href={menu.link}
+              className="btn btn-ghost btn-block text-left"
+            >
               {menu.name}
             </a>
           ))}

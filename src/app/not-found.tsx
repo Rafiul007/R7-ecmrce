@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Page() {
-  return (
-    <div>not-found</div>
-  )
+  return <div>not-found</div>;
 }
 
-export default Page
+export default Page;

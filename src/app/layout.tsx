@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
-import {Navbar} from "@/components/ui/Navbar";
+import { Navbar } from "@/components/ui/Navbar";
 import Footer from "@/components/layout/Footer";
 
 const geistSans = Geist({
@@ -32,9 +32,7 @@ export default function RootLayout({
           <div className="sticky top-0 z-50">
             <Navbar />
           </div>
-          <main className="flex-grow w-full mx-auto text-2xl">
-            {children}
-          </main>
+          <main className="flex-grow w-full mx-auto text-2xl">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
