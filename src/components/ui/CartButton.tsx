@@ -16,7 +16,7 @@ export const CartButton: FC<CartButtonProps> = ({ cartItemCount }) => {
 
       {/* 🔹 Cart Item Count Badge */}
       {cartItemCount > 0 && (
-        <span className="absolute top-0 right-0 -mt-1 -mr-1 bg-primary text-white text-xs font-bold px-1 py-0 rounded-full">
+        <span className="absolute top-0 right-0 -mt-1 -mr-1 bg-brand text-white text-xs font-bold px-1 py-0 rounded-full">
           {cartItemCount}
         </span>
       )}

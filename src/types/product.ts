@@ -7,4 +7,6 @@ export interface IProduct {
     dateAdded: string;
     category?: string;
     inStock?: boolean; 
+    sizes?: string[];
+    colors?: string[];
   }
