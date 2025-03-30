@@ -10,3 +10,12 @@ export interface IProduct {
   sizes?: string[];
   colors?: string[];
 }
+
+export interface ICartItem {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+  colors?: string[];
+  quantity: number;
+}
