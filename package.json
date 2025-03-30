@@ -25,7 +25,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-fast-marquee": "^1.6.5",
-    "react-responsive-carousel": "^3.2.23"
+    "react-responsive-carousel": "^3.2.23",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
