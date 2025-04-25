@@ -52,7 +52,7 @@ export const useCartStore = create<CartState>()(
 
           const updatedCart = state.cart.map((cartItem) =>
             cartItem.id === item.id
-              ? { ...cartItem, quantity: item.quantity } // <- only update quantity
+              ? { ...cartItem, quantity: item.quantity }
               : cartItem
           );
 

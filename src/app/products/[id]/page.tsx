@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { IProduct } from "@/types/product"; // Adjust the import path if needed
+import { IProduct } from "@/types/product";
 import { useParams } from "next/navigation";
-import { useCartStore } from "@/store/cartStore"; // ✅ Import Cart Store
-import { toast } from "react-hot-toast"; // ✅ Import Toast for notifications
+import { useCartStore } from "@/store/cartStore";
+import { toast } from "react-hot-toast";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const { addToCart } = useCartStore(); // ✅ Get addToCart function from store
+  const { addToCart } = useCartStore();
   const [product, setProduct] = useState<IProduct | null>(null);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
@@ -52,7 +52,7 @@ const ProductDetails = () => {
       quantity,
     });
 
-    toast.success("Product added to cart!"); // ✅ Success message
+    toast.success("Product added to cart!");
   };
 
   return (
@@ -145,7 +145,7 @@ const ProductDetails = () => {
           <div className="mt-6 flex gap-4">
             <button
               className="btn btn-primary btn-sm text-white"
-              onClick={handleAddToCart} // ✅ Add to cart function
+              onClick={handleAddToCart}
             >
               Add to Cart
             </button>

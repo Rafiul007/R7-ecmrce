@@ -19,7 +19,7 @@ export const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
 
-  // ✅ Zustand state
+  //  Zustand state
   const cartItems = useCartStore((state) => state.cart);
   const updateCart = useCartStore((state) => state.updateItem);
 

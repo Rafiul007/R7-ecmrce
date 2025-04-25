@@ -1,4 +1,4 @@
-"use client"; // Ensures this component runs in the browser
+"use client";
 
 import Image from "next/image";
 import { FC } from "react";
