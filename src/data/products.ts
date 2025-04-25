@@ -1,3 +1,5 @@
+import { ICartItem } from "@/types/product";
+
 export const products = [
   {
     id: 1,
@@ -120,5 +122,35 @@ export const products = [
     inStock: false,
     colors: ["Black", "White", "Grey", "Blue"],
     sizes: ["6", "7", "8", "9", "10", "11", "12"],
+  },
+];
+
+export const cartItems: ICartItem[] = [
+  {
+    id: 1,
+    title: "Nike Air Jordan 1",
+    price: 120,
+    image:
+      "https://res.cloudinary.com/dmzmohj4i/image/upload/v1723129214/fe4gymmcdhnjy5kems1g.jpg",
+    colors: ["Red", "Black"],
+    quantity: 2,
+  },
+  {
+    id: 5,
+    title: "Adidas Yeezy Boost 350",
+    price: 220,
+    image:
+      "https://res.cloudinary.com/dmzmohj4i/image/upload/v1739559862/icqnrsptsd9monjch9ce.jpg",
+    colors: ["Grey", "Black", "White", "Blue"],
+    quantity: 1,
+  },
+  {
+    id: 7,
+    title: "Nike Air Jordan 3",
+    price: 140,
+    image:
+      "https://res.cloudinary.com/dmzmohj4i/image/upload/v1739559862/icqnrsptsd9monjch9ce.jpg",
+    colors: ["White", "Black", "Red"],
+    quantity: 1,
   },
 ];

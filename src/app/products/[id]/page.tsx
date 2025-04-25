@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { IProduct } from "@/types/product"; // Adjust the import path if needed
+import { IProduct } from "@/types/product";
 import { useParams } from "next/navigation";
+import { useCartStore } from "@/store/cartStore";
+import { toast } from "react-hot-toast";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const { addToCart } = useCartStore();
   const [product, setProduct] = useState<IProduct | null>(null);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
@@ -34,12 +37,23 @@ const ProductDetails = () => {
     fetchProduct();
   }, [id]);
 
-  // Add default values for the properties
   if (!product) {
     return <p>Loading product...</p>;
   }
 
   const images = product.images || [];
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.images[0],
+      quantity,
+    });
+
+    toast.success("Product added to cart!");
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -129,7 +143,10 @@ const ProductDetails = () => {
           </div>
 
           <div className="mt-6 flex gap-4">
-            <button className="btn btn-primary btn-sm text-white">
+            <button
+              className="btn btn-primary btn-sm text-white"
+              onClick={handleAddToCart}
+            >
               Add to Cart
             </button>
             <button className="btn btn-outline btn-secondary btn-sm hover:!bg-secondary hover:!text-white transition-all">
