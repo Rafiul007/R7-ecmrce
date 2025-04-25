@@ -6,9 +6,8 @@ import { CartButton } from "./CartButton";
 import { MobileMenu } from "./MobileMenu";
 import { IMenu } from "@/types/app";
 import { Cart } from "./cart";
-import { ICartItem } from "@/types/product";
 import { usePathname } from "next/navigation";
-import { cartItems as initialCartItems } from "@/data/products"; // Renamed to avoid conflict
+import { useCartStore } from "@/store/cartStore";
 
 const menuData: IMenu[] = [
   { name: "Home", link: "/" },
@@ -19,24 +18,12 @@ const menuData: IMenu[] = [
 export const Navbar: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState<ICartItem[]>(() => [
-    ...initialCartItems,
-  ]); // Corrected
+
+  // ✅ Zustand state
+  const cartItems = useCartStore((state) => state.cart);
+  const updateCart = useCartStore((state) => state.updateItem);
 
   const pathname = usePathname();
-
-  const updateCart = (item: ICartItem) => {
-    setCartItems((prevItems) => {
-      const existingItem = prevItems.find((i) => i.id === item.id);
-      if (existingItem) {
-        return prevItems.map((i) =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      } else {
-        return [...prevItems, item];
-      }
-    });
-  };
 
   const totalItems = cartItems.reduce(
     (total, item) => total + item.quantity,

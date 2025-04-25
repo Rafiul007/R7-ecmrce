@@ -1,9 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { ICartItem } from "@/types/product";
+import { ICartItem } from "@/types";
 import { FC } from "react";
-
 interface CartProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -22,7 +21,19 @@ export const Cart: FC<CartProps> = ({
     .toFixed(2);
 
   const handleQuantityChange = (item: ICartItem, change: number) => {
-    updateCart({ ...item, quantity: item.quantity + change });
+    const newQty = item.quantity + change;
+
+    console.log("🧪 Original item quantity:", item.quantity);
+    console.log("🔢 Change:", change);
+    console.log("🆕 New quantity:", newQty);
+
+    // Create a new object explicitly
+    const updatedItem: ICartItem = {
+      ...item,
+      quantity: newQty,
+    };
+
+    updateCart(updatedItem);
   };
 
   return (
@@ -31,17 +42,15 @@ export const Cart: FC<CartProps> = ({
         open ? "visible opacity-100" : "invisible opacity-0"
       }`}
     >
-      {/* Overlay */}
       <div
         className="fixed inset-0 bg-gray-500 bg-opacity-75"
         onClick={() => setOpen(false)}
       ></div>
 
-      {/* Cart Content */}
       <div
-        className="w-full sm:w-96 bg-white shadow-xl p-6 flex flex-col h-full transition-transform transform ${
-          open ? 'translate-x-0' : 'translate-x-full'
-        }"
+        className={`w-full sm:w-96 bg-white shadow-xl p-6 flex flex-col h-full transition-transform transform ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <div className="flex justify-between items-center border-b pb-4">
           <h2 className="text-lg font-medium">Shopping Cart</h2>
@@ -52,6 +61,7 @@ export const Cart: FC<CartProps> = ({
             ✕
           </button>
         </div>
+
         <div className="flex-1 overflow-y-auto mt-4">
           {cartItems.length === 0 ? (
             <p className="text-center text-gray-500">Your cart is empty.</p>
@@ -75,14 +85,22 @@ export const Cart: FC<CartProps> = ({
                     <p className="text-sm text-gray-500">
                       {item.colors?.join(", ")}
                     </p>
-                    <div className="flex items-center space-x-2">
-                      <button
-                        onClick={() => handleQuantityChange(item, -1)}
-                        className="btn btn-sm btn-outline"
-                        disabled={item.quantity <= 1}
-                      >
-                        -
-                      </button>
+                    <div className="flex items-center space-x-2 mt-1">
+                      {item.quantity > 1 ? (
+                        <button
+                          onClick={() => handleQuantityChange(item, -1)}
+                          className="btn btn-sm btn-outline"
+                        >
+                          -
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => updateCart({ ...item, quantity: 0 })}
+                          className="btn btn-sm btn-outline"
+                        >
+                          x
+                        </button>
+                      )}
                       <span>{item.quantity}</span>
                       <button
                         onClick={() => handleQuantityChange(item, 1)}
@@ -100,6 +118,7 @@ export const Cart: FC<CartProps> = ({
             </ul>
           )}
         </div>
+
         <div className="border-t pt-4 mt-4">
           <div className="flex justify-between text-lg font-medium">
             <p>Subtotal</p>
