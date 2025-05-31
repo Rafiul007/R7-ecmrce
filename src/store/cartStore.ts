@@ -55,9 +55,6 @@ export const useCartStore = create<CartState>()(
               ? { ...cartItem, quantity: item.quantity }
               : cartItem
           );
-
-          console.log("🧠 Final updated cart:", updatedCart);
-
           return {
             cart: updatedCart,
           };

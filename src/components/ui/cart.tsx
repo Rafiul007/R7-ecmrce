@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ICartItem } from "@/types";
 import { FC } from "react";
+import { useRouter } from "next/navigation";
 interface CartProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -16,6 +17,7 @@ export const Cart: FC<CartProps> = ({
   cartItems,
   updateCart,
 }) => {
+  const router = useRouter();
   const subtotal = cartItems
     .reduce((total, item) => total + item.price * item.quantity, 0)
     .toFixed(2);
@@ -23,17 +25,18 @@ export const Cart: FC<CartProps> = ({
   const handleQuantityChange = (item: ICartItem, change: number) => {
     const newQty = item.quantity + change;
 
-    console.log("🧪 Original item quantity:", item.quantity);
-    console.log("🔢 Change:", change);
-    console.log("🆕 New quantity:", newQty);
-
-    // Create a new object explicitly
     const updatedItem: ICartItem = {
       ...item,
       quantity: newQty,
     };
 
     updateCart(updatedItem);
+  };
+
+  //navigate to checkout page
+  const handleNavigateToCheckout = () => {
+    setOpen(false);
+    router.push("/checkout");
   };
 
   return (
@@ -124,7 +127,10 @@ export const Cart: FC<CartProps> = ({
             <p>Subtotal</p>
             <p>${subtotal}</p>
           </div>
-          <button className="btn btn-primary w-full mt-4 hover:bg-primary/90">
+          <button
+            className="btn btn-primary w-full mt-4 hover:bg-primary/90"
+            onClick={handleNavigateToCheckout}
+          >
             Checkout
           </button>
           <button
