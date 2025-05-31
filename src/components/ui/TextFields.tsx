@@ -1,29 +1,60 @@
-// components/form/TextInputField.tsx
-import { InputHTMLAttributes } from "react";
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
+"use client";
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+import React from "react";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
+
+interface RHFTextFieldProps<T extends FieldValues> {
+  name: Path<T>;
+  control: Control<T>;
   label?: string;
-  error?: FieldError;
-  registration: UseFormRegisterReturn;
+  placeholder?: string;
+  type?: string;
+  className?: string;
+  disabled?: boolean;
+  autoComplete?: string;
 }
 
-const TextInputField = ({ label, error, registration, ...rest }: Props) => {
+const RHFTextField = <T extends FieldValues>({
+  name,
+  control,
+  label,
+  placeholder,
+  type = "text",
+  className = "",
+  disabled = false,
+  autoComplete,
+}: RHFTextFieldProps<T>) => {
   return (
-    <div className="w-full">
-      {label && (
-        <label className="text-xs font-medium mb-1 block">{label}</label>
+    <Controller
+      control={control}
+      name={name}
+      render={({ field, fieldState }) => (
+        <div className="w-full">
+          {label && (
+            <label htmlFor={name} className="text-xs font-medium mb-1 block">
+              {label}
+            </label>
+          )}
+          <input
+            {...field}
+            id={name}
+            type={type}
+            placeholder={placeholder}
+            disabled={disabled}
+            autoComplete={autoComplete}
+            className={`input input-bordered input-sm w-full ${className} ${
+              fieldState.error ? "border-red-500" : ""
+            }`}
+          />
+          {fieldState.error && (
+            <p className="text-xs text-red-500 mt-1">
+              {fieldState.error.message}
+            </p>
+          )}
+        </div>
       )}
-      <input
-        {...registration}
-        {...rest}
-        className={`input input-bordered input-sm w-full ${
-          error ? "border-red-500" : ""
-        }`}
-      />
-      {error && <p className="text-xs text-red-500 mt-1">{error.message}</p>}
-    </div>
+    />
   );
 };
 
-export default TextInputField;
+export default RHFTextField;

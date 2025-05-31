@@ -1,29 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React from "react";
-import { useForm } from "react-hook-form";
+import { Resolver, useForm } from "react-hook-form";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
 
 import CartSummary from "@/components/ui/cartSummary";
-import TextInputField from "@/components/ui/TextFields";
 import { shippingFieldsConfig } from "@/constants/checkout-fields";
-
-export interface CheckoutFormValues {
-  email: string;
-  firstName: string;
-  lastName: string;
-  company?: string;
-  address: string;
-  apartment?: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  phone?: string;
-  subscribe?: boolean;
-}
-
+import { CheckoutFormValues } from "@/types/checkout";
+import RHFTextField from "@/components/ui/TextFields";
+import { useCartStore } from "@/store/cartStore";
 const checkoutSchema = Yup.object({
   email: Yup.string().email("Invalid email").required("Email is required"),
   firstName: Yup.string().required("First name is required"),
@@ -39,19 +26,55 @@ const checkoutSchema = Yup.object({
 });
 
 const CheckoutPage = () => {
+  const router = useRouter();
+  const clearCart = useCartStore((state) => state.clearCart);
   const {
+    control,
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { isValid },
   } = useForm<CheckoutFormValues>({
-    resolver: yupResolver(checkoutSchema) as any,
+    mode: "onChange",
+    resolver: yupResolver(
+      checkoutSchema
+    ) as unknown as Resolver<CheckoutFormValues>,
     defaultValues: {
+      email: "",
+      firstName: "",
+      lastName: "",
+      company: "",
+      address: "",
+      apartment: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      phone: "",
       subscribe: false,
     },
   });
 
   const onSubmit = (data: CheckoutFormValues) => {
-    console.log("✅ Form Data:", data);
+    const cartItems = useCartStore.getState().cart;
+
+    const orderPayload = {
+      customer: { ...data },
+      items: cartItems.map((item) => ({
+        id: item.id,
+        title: item.title,
+        quantity: item.quantity,
+        price: item.price,
+      })),
+      totalAmount: cartItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      ),
+    };
+
+    console.log("📦 Order Payload:", orderPayload);
+
+    reset();
+    clearCart();
   };
 
   return (
@@ -73,10 +96,11 @@ const CheckoutPage = () => {
             </p>
           </div>
 
-          <TextInputField
+          <RHFTextField
+            name="email"
+            control={control}
             placeholder="Email"
-            registration={register("email")}
-            error={errors.email}
+            label="Email Address"
           />
 
           <label className="flex items-center gap-2 mt-2 text-xs text-gray-600">
@@ -94,11 +118,11 @@ const CheckoutPage = () => {
           <h2 className="font-semibold text-sm mb-1">Shipping address</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {shippingFieldsConfig.map((field) => (
-              <TextInputField
-                key={field.name}
+              <RHFTextField
+                key={field.name as string}
+                name={field.name as keyof CheckoutFormValues}
+                control={control}
                 placeholder={field.placeholder}
-                registration={register(field.name)}
-                error={errors[field.name]}
               />
             ))}
           </div>
@@ -106,16 +130,35 @@ const CheckoutPage = () => {
 
         {/* Button Group */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-3">
-          <a href="/shop" className="btn btn-outline btn-sm w-full text-center">
+          <button
+            type="button"
+            onClick={() => router.push("/shop")}
+            className="btn btn-outline btn-sm w-full"
+          >
             Continue Shopping
-          </a>
-          <button type="submit" className="btn btn-primary btn-sm w-full">
+          </button>
+          <button
+            type="submit"
+            className="btn btn-primary btn-sm w-full"
+            disabled={!isValid}
+          >
             Place Order
           </button>
         </div>
+        <p className="text-xs text-gray-500 mt-2">
+          Note: By placing your order, you agree to our{" "}
+          <a href="#" className="text-blue-500">
+            Terms of Service
+          </a>{" "}
+          and{" "}
+          <a href="#" className="text-blue-500">
+            Privacy Policy
+          </a>
+          .
+        </p>
       </div>
 
-      {/* Right Column - Cart */}
+      {/* Right Column - Cart Summary */}
       <div className="w-full lg:w-1/3 px-0 lg:px-4 py-2 lg:py-0">
         <CartSummary />
       </div>
