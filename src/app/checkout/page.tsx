@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import CartSummary from "@/components/ui/cartSummary";
 import { shippingFieldsConfig } from "@/constants/checkout-fields";
 import { CheckoutFormValues } from "@/types/checkout";
-import RHFTextField from "@/components/ui/TextFields";
+import RHFTextField from "@/components/ui/Rhf-TextFields";
 import { useCartStore } from "@/store/cartStore";
 const checkoutSchema = Yup.object({
   email: Yup.string().email("Invalid email").required("Email is required"),
