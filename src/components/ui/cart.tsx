@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ICartItem } from "@/types";
 import { FC } from "react";
 import { useRouter } from "next/navigation";
+import { useCartStore } from "@/store/cartStore";
 interface CartProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -38,7 +39,12 @@ export const Cart: FC<CartProps> = ({
     setOpen(false);
     router.push("/checkout");
   };
+  const clearCart = useCartStore((state) => state.clearCart);
 
+  const handleClearCart = () => {
+    clearCart();
+    setOpen(false);
+  };
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-end transition-opacity ${
@@ -135,9 +141,15 @@ export const Cart: FC<CartProps> = ({
           </button>
           <button
             onClick={() => setOpen(false)}
-            className="btn btn-outline w-full mt-2"
+            className="btn btn-outline  w-full mt-2"
           >
             Continue Shopping
+          </button>
+          <button
+            onClick={handleClearCart}
+            className="btn bg-red-600 hover:bg-red-500 text-white  w-full mt-2"
+          >
+            Clear Cart
           </button>
         </div>
       </div>
