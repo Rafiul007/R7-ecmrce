@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { Navbar } from "@/components/ui/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Toaster } from "react-hot-toast"; // ✅ Import Toaster
+import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,14 +30,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <ThemeProvider>
-          <div className="sticky top-0 z-50">
-            <Navbar />
-          </div>
-          <Toaster position="top-right" />
-          <main className="flex-grow w-full mx-auto text-2xl">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <ReactQueryProvider>
+          <ThemeProvider>
+            <div className="sticky top-0 z-50">
+              <Navbar />
+            </div>
+            <Toaster position="top-right" />
+            <main className="flex-grow w-full mx-auto text-2xl">
+              {children}
+            </main>
+            <Footer />
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

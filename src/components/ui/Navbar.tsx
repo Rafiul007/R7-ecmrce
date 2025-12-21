@@ -11,7 +11,7 @@ import { Cart } from "./cart";
 
 import { IMenu } from "@/types/app";
 import { useCartStore } from "@/store/cartStore";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuthStatus } from "@/hooks/useAuthStatus";
 
 const menuData: IMenu[] = [
   { name: "Home", link: "/" },
@@ -24,7 +24,7 @@ export const Navbar: FC = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
   const pathname = usePathname();
-  const { user, logout } = useAuth();
+  const { isAuthenticated, loading } = useAuthStatus();
 
   // Cart state (Zustand)
   const cartItems = useCartStore((state) => state.cart);
@@ -34,6 +34,11 @@ export const Navbar: FC = () => {
     (total, item) => total + item.quantity,
     0
   );
+
+  const logout = () => {
+    // Clear auth tokens and user data here
+    // For example, clear localStorage or call an API endpoint
+  };
 
   return (
     <header className="w-full border-b bg-base-100">
@@ -87,12 +92,14 @@ export const Navbar: FC = () => {
           />
 
           {/* Auth */}
-          {user ? (
+          {isAuthenticated ? (
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-9 rounded-full bg-neutral text-neutral-content flex items-center justify-center">
                   <span className="text-sm font-semibold">
-                    {user.name.charAt(0).toUpperCase()}
+                    {isAuthenticated && !loading
+                      ? "U" // Placeholder for user initial
+                      : "..."}
                   </span>
                 </div>
               </label>
@@ -101,7 +108,7 @@ export const Navbar: FC = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box shadow mt-3 w-48"
               >
-                <li className="px-4 py-2 text-sm font-medium">{user.name}</li>
+                <li className="px-4 py-2 text-sm font-medium">User</li>
                 <li>
                   <Link href="/profile">Profile</Link>
                 </li>
