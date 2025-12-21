@@ -25,10 +25,27 @@ export interface RegisterResponse {
   };
 }
 
+export interface LoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  success: boolean;
+  message: string;
+  data: {
+    accessToken: string;
+  };
+}
+
 /* =====================
    API functions
 ===================== */
 
 export function register(payload: RegisterPayload) {
   return api.post<RegisterResponse>(AUTH_ENDPOINTS.REGISTER, payload);
+}
+
+export function login(payload: LoginPayload) {
+  return api.post<LoginResponse>(AUTH_ENDPOINTS.LOGIN, payload);
 }
